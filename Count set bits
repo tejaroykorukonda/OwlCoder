@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+int count_set_bits(int num) {
+    int count = 0;
+    while (num) {
+        count += num & 1;
+        num >>= 1;
+    }
+    return count;
+}
+
+int main() {
+    // Input the number of queries
+    int Q;
+    cin >> Q;
+
+    // Process each query
+    for (int i = 0; i < Q; ++i) {
+        // Input the number
+        int N;
+        cin >> N;
+
+        // Count set bits and print the result
+        int result = count_set_bits(N);
+        cout << result << endl;
+    }
+
+    return 0;
+}
