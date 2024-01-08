@@ -53,3 +53,35 @@ int main() {
 
     return 0;
 }
+//cpp
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int n = nums.size();
+        int result = 0;
+        vector<map<int, int>> dp(n + 1);
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                long long commonDifference = static_cast<long long>(nums[i]) - static_cast<long long>(nums[j]);
+
+                if (commonDifference <= INT_MIN || commonDifference >= INT_MAX)
+                    continue;
+
+                long long count_i = 0, count_j = 0;
+
+                if (dp[j].find(commonDifference) != dp[j].end())
+                    count_j = static_cast<long long>(dp[j][commonDifference]);
+
+                if (dp[i].find(commonDifference) != dp[i].end())
+                    count_i = static_cast<long long>(dp[i][commonDifference]);
+
+                result += count_j;
+                dp[i][commonDifference] = count_j + count_i + 1;
+            }
+        }
+
+        return result;
+    }
+};
+
