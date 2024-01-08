@@ -1,0 +1,55 @@
+class Solution:
+    def numberOfArithmeticSlices(self, nums: List[int]) -> int:
+        n = len(nums)
+        t_c = 0  
+        dp = [defaultdict(int) for _ in range(n)]
+
+        for i in range(1, n):
+            for j in range(i):
+                df = nums[i] - nums[j]
+                dp[i][df] += 1  
+                if df in dp[j]:
+                    dp[i][df] += dp[j][df]
+                    t_c += dp[j][df]
+
+        return t_c
+
+//cpp
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int n = nums.size();
+        int total_count = 0;
+        vector<unordered_map<long long, int>> dp(n);
+
+        for (int i = 1; i < n; ++i) {
+            for (int j = 0; j < i; ++j) {
+                long long diff = static_cast<long long>(nums[i]) - nums[j];
+                dp[i][diff] += 1;
+
+                if (dp[j].count(diff)) {
+                    dp[i][diff] += dp[j][diff];
+                    total_count += dp[j][diff];
+                }
+            }
+        }
+
+        return total_count;
+    }
+};
+
+int main() {
+    Solution solution;
+    vector<int> nums = {7,7,7,7,7};
+
+    int result = solution.numberOfArithmeticSlices(nums);
+    cout << result << endl;
+
+    return 0;
+}
