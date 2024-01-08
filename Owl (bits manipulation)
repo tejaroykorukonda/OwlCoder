@@ -1,0 +1,96 @@
+SWAP BITS
+----------------
+#include <iostream>
+
+int swapBits(int x, int p1, int p2, int n) {
+    int set1 = (x >> p1) & ((1 << n) - 1);
+    int set2 = (x >> p2) & ((1 << n) - 1);
+    int xor_result = set1 ^ set2;
+    x = x ^ ((xor_result << p1) | (xor_result << p2));
+    return x;
+}
+
+int main() {
+    int x, p1, p2, n;
+    std::cin >> x >> p1 >> p2 >> n;
+
+    int result = swapBits(x, p1, p2, n);
+
+    std::cout << result << std::endl;
+
+    return 0;
+}
+
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+int minKBitFlips(vector<int>& nums, int k) {
+    int n = nums.size();
+    int flips = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (nums[i] == 0) {
+            if (i + k > n) {
+                return -1;
+            }
+            
+            for (int j = i; j < i + k; ++j) {
+                nums[j] ^= 1;
+            }
+            flips++;
+        }
+    }
+
+    return flips;
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> nums(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> nums[i];
+    }
+
+    int k;
+    cin >> k;
+
+    int result = minKBitFlips(nums, k);
+
+    cout << result << endl;
+
+    return 0;
+}
+
+ARRAY TRANSFORMATION
+---------------------
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    int runningSum = 1; 
+    for (int i = 1; i < n; ++i) {
+        if (a[i] > runningSum) {
+            cout << "NO" << endl;
+            return 0;
+        }
+        runningSum += a[i];
+    }
+
+    cout << "YES" << endl;
+
+    return 0;
+}
