@@ -24,3 +24,29 @@ int main() {
 	}
 
 }
+
+Candy Store
+----------------------
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n,m;
+	    cin>>n>>m;
+	    if(n>m)
+	    {
+	        cout<<m<<"\n";
+	    }
+	    else
+	    {
+	        cout<<(n+(m-n)*2)<<"\n";
+	    }
+	}
+
+}
