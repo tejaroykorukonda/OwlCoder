@@ -1,0 +1,42 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void simpleSieve(int N, vector<int> &primes) {
+    vector<bool> isPrime(N, true);
+    for (int p = 2; p * p < N; ++p)
+        if (isPrime[p])
+            for (int i = p * p; i < N; i += p)
+                isPrime[i] = false;
+    for (int p = 2; p < N; ++p)
+        if (isPrime[p])
+            primes.push_back(p);
+}
+
+void segmentedSieve(int l, int r) {
+    int N = floor(sqrt(r)) + 1;
+    vector<int> primes;
+    simpleSieve(N, primes);
+
+    vector<bool> isPrime(r - l + 1, true);
+
+    for (int p : primes) {
+        int loLim = max(p * p, (l / p) * p);
+        if (loLim < l) loLim += p;
+        for (int j = loLim; j <= r; j += p)
+            isPrime[j - l] = false;
+    }
+
+    for (int i = max(l, 2); i <= r; ++i)
+        if (isPrime[i - l])
+            cout << i << " ";
+}
+
+int main() {
+    int l = 210;
+    int r = 234;
+
+    cout << "Primes in the range [" << l << ", " << r << "]:\n";
+    segmentedSieve(l, r);
+
+    return 0;
+}
