@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+//# define ll long long;
+int N=1e6+7;
+vector<int>Prime(N,1);
+void G(vector<int>&Prime){
+    Prime[0]=0;
+    Prime[1]=0;
+    for(int i=2;i*i<N;i++){
+        if(Prime[i]==1){
+            for(int j=i*i;j<N;j+=i){
+                Prime[j]=0;
+
+            }
+        }
+    }
+}
+int main()
+{
+G(Prime);
+int t;
+cin>>t;
+while(t--)
+{
+    int N;
+    // if(Prime[n]==1){
+    //     //cout<<"YES"<<endl;
+    // }
+    cin>>N;
+    vector<int>ans;
+    for(int i=3;i<N;i++)
+    {
+        if(Prime[i]){
+            ans.push_back(i);
+        }
+    }
+    int s=ans.size();
+    int c=0;
+    for(int i=0;i<s-1;i++){
+        int co=ans[i]+2;
+        if(co<=N and Prime[co])
+        c++;
+    }
+    cout<<c<<endl;
+}
+}
