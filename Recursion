@@ -1,0 +1,40 @@
+//pick and non pick
+#include<iostream>
+#include<vector>
+using namespace std;
+void c(int ind,int arr[],int n,int k,vector<int>&ds){
+    //base case
+    if(ind==n){
+        if(k==0){
+            for(auto it:ds){
+                cout<<it<<" ";
+            }
+            cout<<endl;
+        }
+            return;
+        
+    }
+    //recursive 
+  //case pick
+    if(arr[ind]<=k){
+    ds.push_back(arr[ind]);
+    k=k-arr[ind];
+    c(ind,arr,n,k,ds);
+    k=k+arr[ind];
+    ds.pop_back();
+}
+   //non pick
+   c(ind+1,arr,n,k,ds);
+}
+int main()
+{
+   int n,k;
+   cin>>n>>k;
+   int arr[n];
+   for(int i=0;i<n;i++){
+    cin>>arr[i];
+   }
+   vector<int>ds;
+   c(0,arr,n,k,ds);
+
+}
